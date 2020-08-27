@@ -452,9 +452,9 @@ client making the connection request. A request can’t be accepted if the
 server isn’t loaded within the runtime. A lot of server code is loaded
 on boot (lsass.exe, services.exe, etc)
 
-.. image:: /images/rpc_pictures/Process.gif
-   :align: center
-   :alt: Process
+.. raw:: html
+
+   <iframe width="560" height="315" src="https://www.youtube.com/embed/8YFp6G3eNd8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 Why is it interesting from a defensive perspective?
 ---------------------------------------------------
@@ -639,7 +639,8 @@ After the module is installed and imported, I will set the $rpc variable
 to search across the C:\Windows\System32\\ directory and identify any
 RPC servers.
 
-``PS > $rpc = ls C:\Windows\System32\* | Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
+``PS > $rpc = ls C:\Windows\System32\* | 
+Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
 
 The DbgHelpPath flag will pull symbols for method names if they exist.
 In order to use this flag the
@@ -649,7 +650,8 @@ must be installed.
 If I wanted to parse RPC Clients as well, I would need to add the
 -ParseClients flag at the end, like so:
 
-``PS > $rpc = ls C:\Windows\System32\\* | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
+``PS > $rpc = ls C:\Windows\System32\\* 
+| Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
 
 This will store RPC Servers and Clients within the $rpc variable.
 
@@ -658,12 +660,14 @@ give me the file path of the RPC Server.
 
 **MS-DRSR:**
 
-``PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath``
+``PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
+| Select FilePath``
 
 If I wanted to parse clients as well as servers (the second command
 above), then to show only the RPC Server the command would be this:
 
-``PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath``
+``PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
+| Select FilePath``
 
 .. image:: /images/rpc_pictures/Picture8.png
    :align: center
@@ -1055,8 +1059,10 @@ with this sensor. To verify, I checked within my Splunk instance:
    :alt: Picture28
 
 .. image:: /images/rpc_pictures/Picture29.png
-   :align: right
+   :align: center
    :alt: Picture29
+
+
 
 These events show me data to everything, except the RPC server
 application that accepted the communication. When trying to find this, I
@@ -1169,7 +1175,8 @@ data, there is similar data to the 5156. This could be used instead at
 scale JOIN'd with a Network Source to achieve the same goal. Thank you
 to Dane Stuckey and Palantir for looking into this.
 
-**Conclusion**
+Conclusion
+==========
 
 As abstractions for attacks are continued to be created, the detection
 engineering team here at SpecterOps keep identifying various IPC
