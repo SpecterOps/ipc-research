@@ -632,16 +632,23 @@ testing. To do this I will be using a function inside of
 `NtObjectManager <https://github.com/googleprojectzero/sandbox-attacksurface-analysis-tools/tree/master/NtObjectManager>`__
 by James Forshaw called “Get-RpcServer”.
 
-``PS > Install-Module NtObjectManager``
+.. code-block: powershell
 
-``PS > Import-Module NtObjectManager``
+   PS > Install-Module NtObjectManager
+
+
+.. code-block: powershell
+
+   PS > Import-Module NtObjectManager
    
 After the module is installed and imported, I will set the $rpc variable
 to search across the C:\Windows\System32\\ directory and identify any
 RPC servers.
 
-``PS > $rpc = ls C:\Windows\System32\* | 
-Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
+.. code-block: powershell
+
+   PS > $rpc = ls C:\Windows\System32\* | 
+   Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
 
 The DbgHelpPath flag will pull symbols for method names if they exist.
 In order to use this flag the
@@ -651,8 +658,9 @@ must be installed.
 If I wanted to parse RPC Clients as well, I would need to add the
 -ParseClients flag at the end, like so:
 
-``PS > $rpc = ls C:\Windows\System32\\* 
-| Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
+.. code-block: powershell
+   PS > $rpc = ls C:\Windows\System32\\* 
+   | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
 
 This will store RPC Servers and Clients within the $rpc variable.
 
@@ -661,14 +669,16 @@ give me the file path of the RPC Server.
 
 **MS-DRSR:**
 
-``PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
-| Select FilePath``
+.. code-block: powershell
+   PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
+   | Select FilePath
 
 If I wanted to parse clients as well as servers (the second command
 above), then to show only the RPC Server the command would be this:
 
-``PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
-| Select FilePath``
+.. code-block: powershell
+   PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
+   | Select FilePath
 
 .. image:: /images/rpc_pictures/Picture8.png
    :align: center
