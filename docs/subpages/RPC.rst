@@ -1184,9 +1184,9 @@ communication.*
 More advanced analytics pertaining to these two attacks can be found
 here -
 
-**MS-DRSR:**: https://github.com/specterops/ipc-research/blob/master/Analytics/DCSync.ipynb
+**MS-DRSR:** https://github.com/specterops/ipc-research/blob/master/Analytics/DCSync.ipynb
 
-**MS-SCMR:**: https://github.com/specterops/ipc-research/blob/master/Analytics/Remote%20Service%20Creation.ipynb
+**MS-SCMR:** https://github.com/specterops/ipc-research/blob/master/Analytics/Remote%20Service%20Creation.ipynb
 
 I was able to identify via Palantir that using available EDR network
 data, there is similar data to the 5156. This could be used instead at
