@@ -11,7 +11,7 @@ IPC Research
 
 Table of Contents: 
 -------------
-:doc:`A Voyage to Uncovering Telemetry: Identifying RPC Telemetry for Detection Engineers <subpages/RPC>`
+:doc:`RPC <subpages/RPC>`
 
 .. toctree::
    :maxdepth: 2
