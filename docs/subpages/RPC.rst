@@ -659,6 +659,7 @@ If I wanted to parse RPC Clients as well, I would need to add the
 -ParseClients flag at the end, like so:
 
 ::
+
    PS > $rpc = ls C:\Windows\System32\\* | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
 
 This will store RPC Servers and Clients within the $rpc variable.
@@ -669,12 +670,14 @@ give me the file path of the RPC Server.
 **MS-DRSR:**
 
 ::
+
    PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
 
 If I wanted to parse clients as well as servers (the second command
 above), then to show only the RPC Server the command would be this:
 
 ::
+
    PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
 
 .. image:: /images/rpc_pictures/Picture8.png
@@ -689,6 +692,7 @@ Controller because Domain Controllers are the only systems where
 **MS-SCMR:**
 
 ::
+
    PS > $rpc | ? {($_.InterfaceId -eq '367ABB81-9844-35F1-AD32-98F038001003')} | Select FilePath
 
 .. image:: /images/rpc_pictures/Picture9.png
@@ -767,6 +771,7 @@ The DCSync attack was executed via Mimikatz, utilizing a Domain Admin
 account (Thor). The command looks like the following:
 
 ::
+
    lsadump::dcsync /domain:marvel.local /user:vision
 
 .. image:: /images/rpc_pictures/Picture12.png
@@ -883,6 +888,7 @@ Domain Controller, hence why a DA account was used. The command looks
 like the following:
 
 ::
+
    PS > sc.exe \\IP-Address-of-remote-host create test binpath=”C:\Windows\System32\notepad.exe”
 
 
