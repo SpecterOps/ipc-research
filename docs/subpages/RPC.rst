@@ -1070,7 +1070,7 @@ ran across `Event ID 5712 – A Remote Procedure Call Was
 Attempted <https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5712>`__.
 I tested this event and come to find out, it doesn’t log. It is unclear
 if this event was logged in the past, but currently the Microsoft Docs
-say this:
+say this - "It appears that this event never occurs":
 
 .. image:: /images/rpc_pictures/Picture30.png
    :align: center
