@@ -37,42 +37,41 @@ incredible work performed by the following individuals:
 Table of Contents
 =================
 
-`Introduction 1 <#introduction>`__
+`Introduction <#introduction>`__
 
-`What is RPC? 2 <#what-is-rpc>`__
+`What is RPC? <#what-is-rpc>`__
 
-`COM & RPC 2 <#_Toc47082524>`__
+`COM & RPC <#_Toc47082524>`__
 
-`Components 2 <#components>`__
+`Components <#components>`__
 
-`RPC Process 6 <#rpc-process>`__
+`RPC Process <#rpc-process>`__
 
-`Why is it interesting from a defensive perspective?
-8 <#_Toc47082527>`__
+`Why is it interesting from a defensive perspective? <#_Toc47082527>`__
 
-`Identifying the RPC Server 9 <#identifying-the-rpc-servers>`__
+`Identifying the RPC Server <#identifying-the-rpc-servers>`__
 
-`DCSync TLDR; 9 <#dcsync-tldr>`__
+`DCSync TLDR; <#dcsync-tldr>`__
 
-`Blogs that go more in-depth 10 <#blogs-that-go-more-in-depth>`__
+`Blogs that go more in-depth <#blogs-that-go-more-in-depth>`__
 
-`Remote Service Creation TLDR 10 <#remote-service-creation-tldr>`__
+`Remote Service Creation TLDR <#remote-service-creation-tldr>`__
 
-`Blogs that go more in-depth 10 <#blogs-that-go-more-in-depth-1>`__
+`Blogs that go more in-depth <#blogs-that-go-more-in-depth-1>`__
 
-`Interface UUID Identification 10 <#interface-uuid-identification>`__
+`Interface UUID Identification <#interface-uuid-identification>`__
 
-`Server Code Identification 11 <#server-code-identification>`__
+`Server Code Identification <#server-code-identification>`__
 
-`Server Endpoint Identification 12 <#_Toc47082535>`__
+`Server Endpoint Identification <#_Toc47082535>`__
 
-`Method Identification 13 <#_Toc47082536>`__
+`Method Identification <#_Toc47082536>`__
 
-`Purpose 22 <#purpose>`__
+`Purpose <#purpose>`__
 
-`Research Data to Telemetry 24 <#research-data-to-telemetry>`__
+`Research Data to Telemetry <#research-data-to-telemetry>`__
 
-`Telemetry to Scalability 29 <#telemetry-to-scalability>`__
+`Telemetry to Scalability <#telemetry-to-scalability>`__
 
 Introduction
 ============
@@ -632,17 +631,15 @@ testing. To do this I will be using a function inside of
 `NtObjectManager <https://github.com/googleprojectzero/sandbox-attacksurface-analysis-tools/tree/master/NtObjectManager>`__
 by James Forshaw called “Get-RpcServer”.
 
-::
-   PS > Install-Module NtObjectManager
-::
-   PS > Import-Module NtObjectManager
+``PS > Install-Module NtObjectManager``
+
+``PS > Import-Module NtObjectManager``
    
 After the module is installed and imported, I will set the $rpc variable
 to search across the C:\Windows\System32\\ directory and identify any
 RPC servers.
 
-::
-   PS > $rpc = ls C:\Windows\System32\* | Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
+``PS > $rpc = ls C:\Windows\System32\* | Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
 
 The DbgHelpPath flag will pull symbols for method names if they exist.
 In order to use this flag the
@@ -652,8 +649,7 @@ must be installed.
 If I wanted to parse RPC Clients as well, I would need to add the
 -ParseClients flag at the end, like so:
 
-::
-   PS > $rpc = ls C:\Windows\System32\\* | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
+``PS > $rpc = ls C:\Windows\System32\\* | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”``
 
 This will store RPC Servers and Clients within the $rpc variable.
 
@@ -662,14 +658,12 @@ give me the file path of the RPC Server.
 
 **MS-DRSR:**
 
-::
-   PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
+``PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath``
 
 If I wanted to parse clients as well as servers (the second command
 above), then to show only the RPC Server the command would be this:
 
-::
-   PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
+``PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath``
 
 .. image:: /images/rpc_pictures/Picture8.png
    :align: center
@@ -682,8 +676,7 @@ Controller because Domain Controllers are the only systems where
 
 **MS-SCMR:**
 
-::
-   PS > $rpc | ? {($_.InterfaceId -eq '367ABB81-9844-35F1-AD32-98F038001003')} | Select FilePath
+``PS > $rpc | ? {($_.InterfaceId -eq '367ABB81-9844-35F1-AD32-98F038001003')} | Select FilePath``
 
 .. image:: /images/rpc_pictures/Picture9.png
    :align: center
@@ -760,15 +753,11 @@ Telemetry <https://posts.specterops.io/utilizing-rpc-telemetry-7af9ea08a1d53>`__
 The DCSync attack was executed via Mimikatz, utilizing a Domain Admin
 account (Thor). The command looks like the following:
 
-::
-   lsadump::dcsync /domain:marvel.local /user:vision
+``lsadump::dcsync /domain:marvel.local /user:vision``
 
 .. image:: /images/rpc_pictures/Picture12.png
    :align: center
    :alt: Picture12
-
-**
-**
 
 **ETW Capture:**
 
@@ -799,9 +788,6 @@ protocol’s documentation pertaining the endpoint mapping. One thing to
 note is that this isn’t a static port. This port can be excluded in the
 firewall and then the endpoint mapping service will choose another port
 to talk to the server.
-
-**
-**
 
 **ProcMon Capture:**
 
@@ -882,11 +868,8 @@ an Administrator or SYSTEM on a host. This test was conducted against a
 Domain Controller, hence why a DA account was used. The command looks
 like the following:
 
-::
-   PS > sc.exe \\IP-Address-of-remote-host create test binpath=”C:\Windows\System32\notepad.exe”
+``PS > sc.exe \\IP-Address-of-remote-host create test binpath=”C:\Windows\System32\notepad.exe”``
 
-**
-**
 
 **ETW Capture:**
 
@@ -916,9 +899,6 @@ like the following:
    :align: center
    :alt: Picture21
 
-**
-**
-
 **OpNum 15 – ROpenSCManagerW:**
 
 .. image:: /images/rpc_pictures/Picture22.png
@@ -944,9 +924,6 @@ like the following:
 .. image:: /images/rpc_pictures/Picture23.png
    :align: center
    :alt: Picture23
-
-**
-**
 
 **ProcMon Capture:**
 
@@ -1074,11 +1051,11 @@ with this sensor. To verify, I checked within my Splunk instance:
 **MS-SCMR:**
 
 .. image:: /images/rpc_pictures/Picture28.png
-   :align: center
+   :align: left
    :alt: Picture28
 
 .. image:: /images/rpc_pictures/Picture29.png
-   :align: center
+   :align: right
    :alt: Picture29
 
 These events show me data to everything, except the RPC server
