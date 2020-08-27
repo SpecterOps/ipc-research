@@ -6,11 +6,11 @@ A Voyage to Uncovering Telemetry
 Identifying RPC Telemetry for Detection Engineers
 **************************************************
 
-
 By: Jonathan Johnson
-********************
+====================
 
-**Acknowledgements**
+Acknowledgements
+================
 
 A huge thank you to the following individuals. Simply put, this research
 would not have been possible without their help and patience. They not
