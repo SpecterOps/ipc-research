@@ -1,13 +1,14 @@
 
-A Voyage to Uncovering Telemetry
-################################
-
-
-Identifying RPC Telemetry for Detection Engineers
-**************************************************
+A Voyage to Uncovering Telemetry: Identifying RPC Telemetry for Detection Engineers
+###################################################################################
 
 By: Jonathan Johnson
-====================
+********************
+
+.. raw:: html
+
+   <iframe src="https://giphy.com/embed/xKeqcRfET8be" width="480" height="197" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/hobbit-xKeqcRfET8be">via GIPHY</a></p>
+
 
 Acknowledgements
 ================
