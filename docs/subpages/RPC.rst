@@ -632,12 +632,12 @@ testing. To do this I will be using a function inside of
 `NtObjectManager <https://github.com/googleprojectzero/sandbox-attacksurface-analysis-tools/tree/master/NtObjectManager>`__
 by James Forshaw called “Get-RpcServer”.
 
-.. code-block: powershell
+::
 
    PS > Install-Module NtObjectManager
 
 
-.. code-block: powershell
+::
 
    PS > Import-Module NtObjectManager
    
@@ -645,7 +645,7 @@ After the module is installed and imported, I will set the $rpc variable
 to search across the C:\Windows\System32\\ directory and identify any
 RPC servers.
 
-.. code-block: powershell
+::
 
    PS > $rpc = ls C:\Windows\System32\* | 
    Get-RpcServer -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
@@ -658,9 +658,8 @@ must be installed.
 If I wanted to parse RPC Clients as well, I would need to add the
 -ParseClients flag at the end, like so:
 
-.. code-block: powershell
-   PS > $rpc = ls C:\Windows\System32\\* 
-   | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
+::
+   PS > $rpc = ls C:\Windows\System32\\* | Get-RpcServer –ParseClients -DbgHelpPath “C:\Tools\WindowsSDK\WindowsKits\10\Debuggers\x64\dbghelp.dll”
 
 This will store RPC Servers and Clients within the $rpc variable.
 
@@ -669,16 +668,14 @@ give me the file path of the RPC Server.
 
 **MS-DRSR:**
 
-.. code-block: powershell
-   PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
-   | Select FilePath
+::
+   PS > $rpc | ? {($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
 
 If I wanted to parse clients as well as servers (the second command
 above), then to show only the RPC Server the command would be this:
 
-.. code-block: powershell
-   PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} 
-   | Select FilePath
+::
+   PS > $rpc | ? {($_.Client -eq $False) -and ($_.InterfaceId -eq 'e3514235-4b06-11d1-ab04-00c04fc2dcd2')} | Select FilePath
 
 .. image:: /images/rpc_pictures/Picture8.png
    :align: center
@@ -691,7 +688,8 @@ Controller because Domain Controllers are the only systems where
 
 **MS-SCMR:**
 
-``PS > $rpc | ? {($_.InterfaceId -eq '367ABB81-9844-35F1-AD32-98F038001003')} | Select FilePath``
+::
+   PS > $rpc | ? {($_.InterfaceId -eq '367ABB81-9844-35F1-AD32-98F038001003')} | Select FilePath
 
 .. image:: /images/rpc_pictures/Picture9.png
    :align: center
@@ -768,7 +766,8 @@ Telemetry <https://posts.specterops.io/utilizing-rpc-telemetry-7af9ea08a1d53>`__
 The DCSync attack was executed via Mimikatz, utilizing a Domain Admin
 account (Thor). The command looks like the following:
 
-``lsadump::dcsync /domain:marvel.local /user:vision``
+::
+   lsadump::dcsync /domain:marvel.local /user:vision
 
 .. image:: /images/rpc_pictures/Picture12.png
    :align: center
@@ -883,7 +882,8 @@ an Administrator or SYSTEM on a host. This test was conducted against a
 Domain Controller, hence why a DA account was used. The command looks
 like the following:
 
-``PS > sc.exe \\IP-Address-of-remote-host create test binpath=”C:\Windows\System32\notepad.exe”``
+::
+   PS > sc.exe \\IP-Address-of-remote-host create test binpath=”C:\Windows\System32\notepad.exe”
 
 
 **ETW Capture:**
@@ -1085,6 +1085,7 @@ say this - "It appears that this event never occurs":
 
 .. image:: /images/rpc_pictures/Picture30.png
    :align: center
+   :width: 400
    :alt: Picture30
 
 Meaning that this event isn’t meant to actually capture anything, but
