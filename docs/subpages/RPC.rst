@@ -77,8 +77,8 @@ Table of Contents
 Introduction
 ============
 
-Jared Atkinson introduced the capability abstraction methodology last
-year to build more robust detections using built-in (Windows Security
+Jared Atkinson introduced the capability abstraction methodology in 2019
+to build more robust detections using built-in (Windows Security
 Events) and commercial tooling (Various different EDR products). This
 process takes an attack technique, lists out the tools that can perform
 that attack, and then breaks down the layers of technology used under
@@ -106,10 +106,7 @@ mechanisms work.
 
 Within this write-up, I will analyze components of `Microsoft
 RPC <https://docs.microsoft.com/en-us/windows/win32/rpc/rpc-start-page>`__
-(MSRPC) implementation and its supporting development tools. I will go
-over various ways an application or security researcher can interact
-with RPC servers, but this research will not cover the implementation of
-the MSRPC network protocol.
+(MSRPC) implementation and its supporting development tools. I will go over various ways security researchers and Windows applications can interact with Windows RPC servers, but this research will not cover the low-level protocol implementation details (see impacket or NtObjectManager for details about that).
 
 Components
 ----------
