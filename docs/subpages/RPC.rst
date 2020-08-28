@@ -777,7 +777,7 @@ account (Thor). The command looks like the following:
 
 **ETW Capture:**
 
-.. image:: /images/rpc_pictures/Picture4.png
+.. image:: /images/rpc_pictures/Picture13.png
    :align: center
    :alt: Picture13
 
